@@ -28,7 +28,7 @@ class AlienInvasion:
     def run_game(self):
         """Start the main loop for the game."""
         while True:
-            #Manages events.
+            #Manages events and keystrokes.
             self._check_events()
             #Draws the background and the ship and flips the screen.
             self._update_screen()
