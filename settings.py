@@ -6,6 +6,6 @@ class Settings:
         #Width of the game window.
         self.screen_width = 1200
         #Height of the game window.
-        self.screen_height = 800
+        self.screen_height = 700
         #Background color.
         self.bg_color = (230,230,230)
