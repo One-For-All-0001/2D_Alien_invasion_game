@@ -3,6 +3,7 @@ import pygame
 
 #From the file settings import the class 'Settings'.
 from settings import Settings
+#From the fiel ship import the class 'Ship'.
 from ship import Ship
 
 
