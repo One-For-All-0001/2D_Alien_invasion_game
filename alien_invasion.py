@@ -28,18 +28,35 @@ class AlienInvasion:
     def run_game(self):
         """Start the main loop for the game."""
         while True:
-            #Manages events and keystrokes.
+            # Manages events and keystrokes.
             self._check_events()
-            #Draws the background and the ship and flips the screen.
+            # Moves the ship towards right.
+            self.ship.update()
+            # Draws the background and the ship and flips the screen.
             self._update_screen()
             # This will run the loop exactlt 60 times per second.
             self.clock.tick(60)
+
 
     def _check_events(self):
         """Respond to keypresses and mouse events."""
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+                
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RIGHT:
+                        self.ship.moving_right = True
+                    elif event.key == pygame.K_LEFT:
+                        self.ship.moving_left = True
+
+                        # Move the ship to the right.
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_RIGHT:
+                        self.ship.moving_right = False
+                    elif event.key == pygame.K_LEFT:
+                        self.ship.moving_left = False
+                        
 
 
     def _update_screen(self):
