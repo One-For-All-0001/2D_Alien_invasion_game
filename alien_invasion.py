@@ -3,9 +3,10 @@ import pygame
 
 #From the file settings import the class 'Settings'.
 from settings import Settings
-#From the fiel ship import the class 'Ship'.
+#From the file ship import the class 'Ship'.
 from ship import Ship
-
+#From the file bullet import the class 'Bullet'.
+from bullet import Bullet
 
 
 class AlienInvasion:
@@ -26,6 +27,7 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode((self.settings.screen_width,self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group()
 
 
 
@@ -36,6 +38,8 @@ class AlienInvasion:
             self._check_events()
             # Moves the ship towards right.
             self.ship.update()
+            # This will automatically calls update() for each sprite in the group.
+            self.bullets.update()
             # Draws the background and the ship and flips the screen.
             self._update_screen()
             # This will run the loop exactlt 60 times per second.
@@ -58,24 +62,33 @@ class AlienInvasion:
 
     def _check_keydown_events(self,event):
                     # Respond to keypresses.
-        if event.key == pygame.K_RIGHT:
+        if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
             self.ship.moving_right = True
-        elif event.key == pygame.K_LEFT:
+        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_f:
+            self._fire_bullet()
 
     def _check_keyup_events(self,event):
                     # Respond to key releases.
-        if event.key == pygame.K_RIGHT:
+        if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
             self.ship.moving_right = False
-        elif event.key == pygame.K_LEFT:
+        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
             self.ship.moving_left = False
+
+    def _fire_bullet(self):
+        """Create a new bullet and add it to the bullets group."""
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
 
     def _update_screen(self):
         # Update images on the screen, and flip to the new screen.
         # Using the Background color attribute of the class Settings.
         self.screen.fill(self.settings.bg_color)
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         self.ship.blitme()
         # Make the most recently drawn screen visible.
         pygame.display.flip()
