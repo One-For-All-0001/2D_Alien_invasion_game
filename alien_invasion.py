@@ -40,6 +40,11 @@ class AlienInvasion:
             self.ship.update()
             # This will automatically calls update() for each sprite in the group.
             self.bullets.update()
+            # Get rid of bullets that have disappeared.
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+                print(len(self.bullets))
             # Draws the background and the ship and flips the screen.
             self._update_screen()
             # This will run the loop exactlt 60 times per second.
