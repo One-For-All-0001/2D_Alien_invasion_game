@@ -44,7 +44,8 @@ class AlienInvasion:
             for bullet in self.bullets.copy():
                 if bullet.rect.bottom <= 0:
                     self.bullets.remove(bullet)
-                print(len(self.bullets))
+                
+
             # Draws the background and the ship and flips the screen.
             self._update_screen()
             # This will run the loop exactlt 60 times per second.
@@ -84,9 +85,10 @@ class AlienInvasion:
             self.ship.moving_left = False
 
     def _fire_bullet(self):
-        """Create a new bullet and add it to the bullets group."""
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        """Create a new bullet and add it to the bullets group within the specified limit."""
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
 
     def _update_screen(self):
         # Update images on the screen, and flip to the new screen.
