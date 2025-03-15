@@ -1,12 +1,14 @@
 import sys
 import pygame
 
-#From the file settings import the class 'Settings'.
+#From the file settings.py import the class 'Settings'.
 from settings import Settings
-#From the file ship import the class 'Ship'.
+#From the file ship.py import the class 'Ship'.
 from ship import Ship
-#From the file bullet import the class 'Bullet'.
+#From the file bullet.py import the class 'Bullet'.
 from bullet import Bullet
+#From the file alien.py import the class 'Alien'.
+from alien import Alien
 
 
 class AlienInvasion:
@@ -28,6 +30,9 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
+
+        self._create_fleet()
 
 
 
@@ -98,7 +103,12 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
                 
-        
+    def _create_fleet(self):
+        """Create the fleet of aliens."""
+        # Make an alien.
+        alien = Alien(self)
+        self.aliens.add(alien)
+
 
     def _update_screen(self):
         # Update images on the screen, and flip to the new screen.
@@ -107,6 +117,7 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.ship.blitme()
+        self.aliens.draw(self.screen)
         # Make the most recently drawn screen visible.
         pygame.display.flip()
 
