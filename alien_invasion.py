@@ -11,6 +11,7 @@ from bullet import Bullet
 from alien import Alien
 
 
+
 class AlienInvasion:
     """Overall class to manage game assets and behavior."""
 
@@ -26,13 +27,14 @@ class AlienInvasion:
         self.settings.screen_height = self.screen.get_rect().height
 
         #Creating a display window.And using the Height and width Attriutes from the Settings class.
-        self.screen = pygame.display.set_mode((self.settings.screen_width,self.settings.screen_height))
+        #self.screen = pygame.display.set_mode((self.settings.screen_width,self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
 
         self._create_fleet()
+
 
 
 
@@ -130,6 +132,7 @@ class AlienInvasion:
         new_alien.rect.x = x_position
         new_alien.rect.y = y_position
         self.aliens.add(new_alien)
+        
 
     def _update_screen(self):
         # Update images on the screen, and flip to the new screen.
