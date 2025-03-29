@@ -99,11 +99,16 @@ class AlienInvasion:
            # Reset the game settings.
            self.settings.initialize_dynamic_settings()
            self._start_game()
+          
 
     def _start_game(self):
          # Reset the game statistics.
             self.stats.reset_stats()
             self.game_active = True
+
+            # Reset the score and update the scoreboard.
+            self.stats.score = 0
+            self.sb.prep_score() # Update the score display.
 
             # Get rid of any remaining bullets and aliens.
             self.bullets.empty()
@@ -163,7 +168,7 @@ class AlienInvasion:
         if collisions:
             self.stats.score += self.settings.alien_points
             self.sb.prep_score()
-            
+
         if not self.aliens:
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
